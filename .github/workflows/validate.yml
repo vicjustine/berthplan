@@ -1,0 +1,30 @@
+name: Validate plans
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every plan is valid JSON with the required fields
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys
+          required = {"container", "gantry", "outreach", "load"}
+          bad = 0
+          for p in sorted(pathlib.Path("plans").glob("*.json")):
+              d = json.loads(p.read_text())
+              for key in ("vessel", "berth", "lifts"):
+                  if key not in d:
+                      print(f"{p}: missing {key}"); bad += 1
+              for lift in d.get("lifts", []):
+                  missing = required - lift.keys()
+                  if missing:
+                      print(f"{p}: lift {lift.get('container','?')} missing {missing}"); bad += 1
+              print(f"{p}: {len(d.get('lifts', []))} lifts")
+          sys.exit(1 if bad else 0)
+          PY
