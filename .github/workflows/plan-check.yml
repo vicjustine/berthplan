@@ -1,0 +1,24 @@
+name: Plan check
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  envelope:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check MSCU4417382
+        id: lift1
+        uses: vicjustine/gantry-envelope-action@v1
+        with:
+          gantry: postpanamax
+          outreach: "44"
+          load: "50"
+          
+      - name: Report headroom
+        if: steps.lift1.outputs.safe == 'true'
+        run: echo "Lift 1 cleared with ${{ steps.lift1.outputs.margin }} t of headroom"
