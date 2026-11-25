@@ -4,6 +4,7 @@
   "lifts": [
     { "container": "MSCU4417382", "gantry": "postpanamax", "outreach": 44, "load": 50 },
     { "container": "MSCU4417399", "gantry": "postpanamax", "outreach": 38, "load": 61 },
-    { "container": "TCLU7781203", "gantry": "neopanamax",  "outreach": 45, "load": 60 }
+    { "container": "TCLU7781203", "gantry": "neopanamax",  "outreach": 45, "load": 60 },
+    { "container": "HLXU9930451", "gantry": "postpanamax", "outreach": 50, "load": 60 }
   ]
 }
