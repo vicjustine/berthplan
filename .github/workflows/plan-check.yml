@@ -27,6 +27,6 @@ jobs:
         id: lift2
         uses: vicjustine/gantry-envelope-action@v1
         with:
-          gantry: postpanamax
+          gantry: neopanamax
           outreach: "50"
           load: "60"
